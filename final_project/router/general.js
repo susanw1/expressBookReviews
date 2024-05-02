@@ -6,6 +6,9 @@ const public_users = express.Router();
 
 
 public_users.post("/register", (req,res) => {
+    if (!req.body.user) {
+        return res.status(400).json({message: "No user info in body"});
+    }
     const username = req.body.user.name;
     const password = req.body.user.password;
 

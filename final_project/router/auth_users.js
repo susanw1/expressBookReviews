@@ -21,6 +21,9 @@ regd_users.post("/login", (req,res) => {
     if (!currUser) {
         return res.status(404).json({message: "No data in body"});
     }
+    if (!authenticatedUser(currUser.name, currUser.password)) {
+        return res.status(401).json({message: "Authentication failed"});
+    }
     const accessToken = jwt.sign({data: currUser}, 'access', {expiresIn: 3600 });
     req.session.authorization = { accessToken };
     return res.status(200).send(`User '${currUser.name}' logged in`);
