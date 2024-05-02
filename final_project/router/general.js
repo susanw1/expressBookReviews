@@ -19,7 +19,9 @@ public_users.get('/',function (req, res) {
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
     const isbn = req.params.isbn;
-    const matchingBooks = Object.entries(books).filter(([k, v]) => k == isbn)
+    const matchingBooks = Object.entries(books)
+        .filter(([k, v]) => k == isbn)
+        
     if (matchingBooks.length == 0) {
         return res.status(404).json( { message: `No book with ISBN '${isbn}'` } );
     }
@@ -30,8 +32,11 @@ public_users.get('/isbn/:isbn',function (req, res) {
   
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+    const author = req.params.author;
+    const matchingBooks = Object.values(books)
+        .filter(v => v.author == author)
+
+    return res.status(200).send(JSON.stringify(matchingBooks));
 });
 
 // Get all books based on title
