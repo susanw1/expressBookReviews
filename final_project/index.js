@@ -18,7 +18,7 @@ app.use("/customer/auth/*", function auth(req,res,next){
     const currToken = req.session.authorization['accessToken'];
     jwt.verify(currToken, "access", (err, currUser) => {
         if (err) {
-            return res.status(403).json({message: `User not authenticated: ${currUser}`})
+            return res.status(403).json({message: "User not authenticated"})
         }
         req.user = currUser;
         next();

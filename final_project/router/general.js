@@ -67,15 +67,15 @@ public_users.get('/title/:title',function (req, res) {
 //  Get book review
 public_users.get('/review/:isbn',function (req, res) {
     const isbn = req.params.isbn;
-    const matchingBooks = Object.entries(books)
+    const matchingReviews = Object.entries(books)
         .filter(([k, v]) => k == isbn)
         .map(([k, v]) => v.reviews)
         
-    if (matchingBooks.length == 0) {
+    if (matchingReviews.length == 0) {
         return res.status(404).json( { message: `No book with ISBN '${isbn}'` } );
     }
     // should just be a single match, so assume [0]
-    const reviews = matchingBooks[0]
+    const reviews = matchingReviews[0]
     return res.status(200).send(JSON.stringify(reviews));
 });
 
